@@ -84,6 +84,8 @@ public class Application implements IApplication {
     QuoteClient client = new QuoteClient();
     for (int i = 0; i < numberOfQuotes; i++) {
       Quote quote = client.fetchQuote();
+      storeQuote(quote, "quotes-"+i+".utf8");
+
       /* There is a missing piece here!
        * As you can see, this method handles the first part of the lab. It uses the web service
        * client to fetch quotes. We have removed a single line from this method. It is a call to
@@ -94,7 +96,6 @@ public class Application implements IApplication {
       for (String tag : quote.getTags()) {
         LOG.info("> " + tag);
       }
-      storeQuote(quote, "quotes-"+i+".utf8");
     }
   }
   
@@ -124,13 +125,7 @@ public class Application implements IApplication {
    * @throws IOException 
    */
   void storeQuote(Quote quote, String filename) throws IOException {
-    String tags = "";
-    for(int i = 0; i < quote.getTags().size(); i++){
-      tags += quote.getTags().get(i);
-    }
-    File f = new File("/quotes" + tags + filename);
-    
-    // throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    throw new UnsupportedOperationException("The student has not implemented this method yet.");
   }
   
   /**
@@ -156,5 +151,4 @@ public class Application implements IApplication {
     IFileExplorer explorer = new DFSFileExplorer();
     explorer.explore(new File(WORKSPACE_DIRECTORY), new CompleteFileTransformer());    
   }
-
 }
