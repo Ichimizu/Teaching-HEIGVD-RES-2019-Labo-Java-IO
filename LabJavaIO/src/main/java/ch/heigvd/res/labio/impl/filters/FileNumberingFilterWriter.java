@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class FileNumberingFilterWriter extends FilterWriter {
 
   private int numLigne = 0;
+  private int previous = 0;
   private static final Logger LOG = Logger.getLogger(FileNumberingFilterWriter.class.getName());
 
   public FileNumberingFilterWriter(Writer out) {
@@ -35,19 +36,23 @@ public class FileNumberingFilterWriter extends FilterWriter {
 
   @Override
   public void write(char[] cbuf, int off, int len) throws IOException {
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    for(int i = 0; i < off + len; i++){
+      write(cbuf[i]);
+    }
+    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
   }
 
   @Override
   public void write(int c) throws IOException {
-    if(numLigne == 0){
-      super.write(++numLigne + "\t");
+    if (numLigne == 0 || previous == '\r' && c !='\n') {
+      out.write(++numLigne + "\t");
     }
 
-    super.write(c);
+    out.write(c);
 
-    if(c == '\n')
-      super.write(++numLigne + "\t");
+    if(c == '\n') {
+      out.write(++numLigne + "\t");
+    }
+    previous = c;
   }
-
 }

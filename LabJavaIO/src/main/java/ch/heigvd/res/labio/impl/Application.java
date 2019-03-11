@@ -7,10 +7,8 @@ import ch.heigvd.res.labio.interfaces.IFileExplorer;
 import ch.heigvd.res.labio.interfaces.IFileVisitor;
 import ch.heigvd.res.labio.quotes.QuoteClient;
 import ch.heigvd.res.labio.quotes.Quote;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
+
+import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -84,7 +82,7 @@ public class Application implements IApplication {
     QuoteClient client = new QuoteClient();
     for (int i = 0; i < numberOfQuotes; i++) {
       Quote quote = client.fetchQuote();
-      storeQuote(quote, "quotes-"+i+".utf8");
+      storeQuote(quote, "quotes-" + i + ".utf8");
 
       /* There is a missing piece here!
        * As you can see, this method handles the first part of the lab. It uses the web service
@@ -125,7 +123,20 @@ public class Application implements IApplication {
    * @throws IOException 
    */
   void storeQuote(Quote quote, String filename) throws IOException {
-    throw new UnsupportedOperationException("The student has not implemented this method yet.");
+    String test = WORKSPACE_DIRECTORY;
+    for(int i = 0; i < quote.getTags().size(); i++){
+      test += ("/" + quote.getTags().get(i));
+      new File(test).mkdirs();
+    }
+    test += ("/" + filename);
+//    new File(test + "/" + filename).createNewFile();
+//    FileWriter tmp = new FileWriter(test);
+//    tmp.write(quote.getQuote());
+
+    BufferedWriter writer = new BufferedWriter(new FileWriter(test));
+    writer.write(quote.getQuote());
+    writer.close();
+    //throw new UnsupportedOperationException("The student has not implemented this method yet.");
   }
   
   /**
