@@ -123,19 +123,19 @@ public class Application implements IApplication {
    * @throws IOException 
    */
   void storeQuote(Quote quote, String filename) throws IOException {
-    String test = WORKSPACE_DIRECTORY;
+    String path = WORKSPACE_DIRECTORY;
     for(int i = 0; i < quote.getTags().size(); i++){
-      test += ("/" + quote.getTags().get(i));
-      new File(test).mkdirs();
+      path += ("\\" + quote.getTags().get(i));
     }
-    test += ("/" + filename);
-//    new File(test + "/" + filename).createNewFile();
-//    FileWriter tmp = new FileWriter(test);
-//    tmp.write(quote.getQuote());
+    path += ("\\" + filename);
 
-    BufferedWriter writer = new BufferedWriter(new FileWriter(test));
-    writer.write(quote.getQuote());
-    writer.close();
+    File file = new File(path);
+    file.getParentFile().mkdirs();
+    file.createNewFile();
+
+    FileWriter fileWriter = new FileWriter(file);
+    fileWriter.write(quote.getQuote());
+    fileWriter.close();
     //throw new UnsupportedOperationException("The student has not implemented this method yet.");
   }
   
@@ -153,6 +153,7 @@ public class Application implements IApplication {
          * of the the IFileVisitor interface inline. You just have to add the body of the visit method, which should
          * be pretty easy (we want to write the filename, including the path, to the writer passed in argument).
          */
+
       }
     });
   }
