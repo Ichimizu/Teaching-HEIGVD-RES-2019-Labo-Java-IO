@@ -125,12 +125,12 @@ public class Application implements IApplication {
   void storeQuote(Quote quote, String filename) throws IOException {
     String path = WORKSPACE_DIRECTORY;
     for(int i = 0; i < quote.getTags().size(); i++){
-      path += ("\\" + quote.getTags().get(i));
+      path += ("/" + quote.getTags().get(i));
     }
 
     new File(path).mkdirs();
 
-    File file = new File(path + "\\" + filename);
+    File file = new File(path + "/" + filename);
 
     if(!file.exists()){
       file.createNewFile();
