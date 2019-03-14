@@ -21,3 +21,4 @@ public interface IFileVisitor {
   public void visit(File file);
   
 }
+
