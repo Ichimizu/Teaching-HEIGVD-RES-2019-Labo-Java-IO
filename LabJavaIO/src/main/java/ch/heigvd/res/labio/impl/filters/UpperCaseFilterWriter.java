@@ -33,5 +33,4 @@ public class UpperCaseFilterWriter extends FilterWriter {
   public void write(int c) throws IOException {
     super.write(java.lang.Character.toUpperCase(c));
   }
-
 }

@@ -82,7 +82,7 @@ public class Application implements IApplication {
     QuoteClient client = new QuoteClient();
     for (int i = 0; i < numberOfQuotes; i++) {
       Quote quote = client.fetchQuote();
-      storeQuote(quote, "quotes-" + i + ".utf8");
+      storeQuote(quote, "quote-" + i + ".utf8");
 
       /* There is a missing piece here!
        * As you can see, this method handles the first part of the lab. It uses the web service
@@ -127,11 +127,15 @@ public class Application implements IApplication {
     for(int i = 0; i < quote.getTags().size(); i++){
       path += ("\\" + quote.getTags().get(i));
     }
-    path += ("\\" + filename);
 
-    File file = new File(path);
-    file.getParentFile().mkdirs();
-    file.createNewFile();
+    new File(path).mkdirs();
+
+    File file = new File(path + "\\" + filename);
+
+    if(!file.exists()){
+      file.createNewFile();
+    }
+    //OutputStreamWriter wr = new OutputStreamWriter(new FileOutputStream(path + "\\" + filename), "UTF-8");
 
     FileWriter fileWriter = new FileWriter(file);
     fileWriter.write(quote.getQuote());
@@ -153,7 +157,11 @@ public class Application implements IApplication {
          * of the the IFileVisitor interface inline. You just have to add the body of the visit method, which should
          * be pretty easy (we want to write the filename, including the path, to the writer passed in argument).
          */
-
+        try {
+          writer.write(file.getPath() + "\n");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
     });
   }
