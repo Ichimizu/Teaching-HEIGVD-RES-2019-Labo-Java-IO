@@ -135,9 +135,9 @@ public class Application implements IApplication {
     if(!file.exists()){
       file.createNewFile();
     }
-    //OutputStreamWriter wr = new OutputStreamWriter(new FileOutputStream(path + "\\" + filename), "UTF-8");
+    OutputStreamWriter fileWriter = new OutputStreamWriter(new FileOutputStream(path + "/" + filename), "UTF-8");
 
-    FileWriter fileWriter = new FileWriter(file);
+    //FileWriter fileWriter = new FileWriter(file);
     fileWriter.write(quote.getQuote());
     fileWriter.close();
     //throw new UnsupportedOperationException("The student has not implemented this method yet.");
